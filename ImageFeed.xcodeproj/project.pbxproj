@@ -7,23 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F60C5EA02979DFDD00A2B5B3 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60C5E9F2979DFDD00A2B5B3 /* ImagesListCell.swift */; };
 		F617867729797179007F2F8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867629797179007F2F8C /* AppDelegate.swift */; };
 		F617867929797179007F2F8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867829797179007F2F8C /* SceneDelegate.swift */; };
-		F617867B29797179007F2F8C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867A29797179007F2F8C /* ViewController.swift */; };
+		F617867B29797179007F2F8C /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867A29797179007F2F8C /* ImagesListViewController.swift */; };
 		F617867E29797179007F2F8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F617867C29797179007F2F8C /* Main.storyboard */; };
 		F61786802979717D007F2F8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F617867F2979717D007F2F8C /* Assets.xcassets */; };
 		F61786832979717D007F2F8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61786812979717D007F2F8C /* LaunchScreen.storyboard */; };
+		F6FC153E29798221004BC4F6 /* UIColor+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC153D29798221004BC4F6 /* UIColor+Extesions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F60C5E9F2979DFDD00A2B5B3 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		F617867329797179007F2F8C /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F617867629797179007F2F8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F617867829797179007F2F8C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F617867A29797179007F2F8C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F617867A29797179007F2F8C /* ImagesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
 		F617867D29797179007F2F8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F617867F2979717D007F2F8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F61786822979717D007F2F8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F61786842979717D007F2F8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6FC153D29798221004BC4F6 /* UIColor+Extesions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extesions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F60C5EA12979E01C00A2B5B3 /* ImagesList */ = {
+			isa = PBXGroup;
+			children = (
+				F617867A29797179007F2F8C /* ImagesListViewController.swift */,
+				F60C5E9F2979DFDD00A2B5B3 /* ImagesListCell.swift */,
+			);
+			path = ImagesList;
+			sourceTree = "<group>";
+		};
 		F617866A29797179007F2F8C = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +69,24 @@
 		F617867529797179007F2F8C /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				F6FC153C297981ED004BC4F6 /* Resources */,
 				F617867629797179007F2F8C /* AppDelegate.swift */,
 				F617867829797179007F2F8C /* SceneDelegate.swift */,
-				F617867A29797179007F2F8C /* ViewController.swift */,
+				F60C5EA12979E01C00A2B5B3 /* ImagesList */,
 				F617867C29797179007F2F8C /* Main.storyboard */,
 				F617867F2979717D007F2F8C /* Assets.xcassets */,
 				F61786812979717D007F2F8C /* LaunchScreen.storyboard */,
 				F61786842979717D007F2F8C /* Info.plist */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		F6FC153C297981ED004BC4F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F6FC153D29798221004BC4F6 /* UIColor+Extesions.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +160,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		F617868A297972AA007F2F8C /* TODO: FIXME: ERROR warning */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -156,6 +179,7 @@
 		};
 		F617868B297972DC007F2F8C /* Auto-increment build number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -179,7 +203,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F617867B29797179007F2F8C /* ViewController.swift in Sources */,
+				F6FC153E29798221004BC4F6 /* UIColor+Extesions.swift in Sources */,
+				F617867B29797179007F2F8C /* ImagesListViewController.swift in Sources */,
+				F60C5EA02979DFDD00A2B5B3 /* ImagesListCell.swift in Sources */,
 				F617867729797179007F2F8C /* AppDelegate.swift in Sources */,
 				F617867929797179007F2F8C /* SceneDelegate.swift in Sources */,
 			);
@@ -327,7 +353,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 49;
 				DEVELOPMENT_TEAM = 2W63BAHUHF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
@@ -358,7 +384,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 49;
 				DEVELOPMENT_TEAM = 2W63BAHUHF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
