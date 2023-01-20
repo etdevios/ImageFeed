@@ -36,6 +36,13 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dcs-b5-Bnl" userLabel="Gradient">
+                                                    <rect key="frame" x="16" y="106" width="343" height="30"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="phU-Tn-iqV"/>
+                                                    </constraints>
+                                                </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uIY-pU-IfJ" userLabel="Like Button">
                                                     <rect key="frame" x="317" y="4" width="42" height="42"/>
                                                     <constraints>
@@ -56,6 +63,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="uIY-pU-IfJ" firstAttribute="trailing" secondItem="0b9-7y-M7e" secondAttribute="trailing" id="8SL-o8-YdE"/>
+                                                <constraint firstItem="0b9-7y-M7e" firstAttribute="bottom" secondItem="Dcs-b5-Bnl" secondAttribute="bottom" id="Gc9-34-NRw"/>
                                                 <constraint firstItem="0b9-7y-M7e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="upi-Ie-9kU" secondAttribute="trailing" constant="8" id="HBR-qK-9pW"/>
                                                 <constraint firstAttribute="bottom" secondItem="0b9-7y-M7e" secondAttribute="bottom" constant="4" id="NqE-qX-tgL"/>
                                                 <constraint firstAttribute="trailing" secondItem="0b9-7y-M7e" secondAttribute="trailing" constant="16" id="Ve0-Kl-UWH"/>
@@ -63,12 +71,15 @@
                                                 <constraint firstItem="0b9-7y-M7e" firstAttribute="leading" secondItem="ipE-rv-G6m" secondAttribute="leading" constant="16" id="agc-1Z-Be8"/>
                                                 <constraint firstItem="upi-Ie-9kU" firstAttribute="leading" secondItem="0b9-7y-M7e" secondAttribute="leading" constant="8" id="eAD-ht-B6u"/>
                                                 <constraint firstItem="0b9-7y-M7e" firstAttribute="top" secondItem="ipE-rv-G6m" secondAttribute="top" constant="4" id="f4M-R5-lRJ"/>
+                                                <constraint firstItem="Dcs-b5-Bnl" firstAttribute="trailing" secondItem="0b9-7y-M7e" secondAttribute="trailing" id="jc4-od-SxA"/>
+                                                <constraint firstItem="Dcs-b5-Bnl" firstAttribute="leading" secondItem="0b9-7y-M7e" secondAttribute="leading" id="r4y-uW-dHV"/>
                                                 <constraint firstItem="uIY-pU-IfJ" firstAttribute="top" secondItem="0b9-7y-M7e" secondAttribute="top" id="yUC-ll-Gdt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="YPBlack"/>
                                         <connections>
                                             <outlet property="dateLabel" destination="upi-Ie-9kU" id="OOe-Bw-ZQx"/>
+                                            <outlet property="gradientView" destination="Dcs-b5-Bnl" id="h46-Vk-oNg"/>
                                             <outlet property="imageCell" destination="0b9-7y-M7e" id="KiJ-nt-raF"/>
                                             <outlet property="likeButton" destination="uIY-pU-IfJ" id="PnT-Q3-XQ4"/>
                                         </connections>
