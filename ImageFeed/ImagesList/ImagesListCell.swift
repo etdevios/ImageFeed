@@ -27,7 +27,7 @@ final class ImagesListCell: UITableViewCell {
         
         dateLabel.text = formattedDate
         
-        let nameImageLike = isLiked ? "LikeActive" : "LikeNoActive"
+        let nameImageLike = isLiked ? "like_button_on" : "like_button_off"
         let likeImage = UIImage(named: nameImageLike)
         likeButton.setImage(likeImage, for: .normal)
     }
