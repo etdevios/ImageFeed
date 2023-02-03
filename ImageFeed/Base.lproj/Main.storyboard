@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DMz-Fk-6A0">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -108,12 +109,106 @@
             </objects>
             <point key="canvasLocation" x="53.600000000000001" y="-34.729064039408868"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="cEU-fg-UY7">
+            <objects>
+                <viewController title="Profile" id="DMz-Fk-6A0" customClass="ProfileViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K9O-Yo-yEk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="cMd-xt-Mxl">
+                                <rect key="frame" x="16" y="79" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="Z4A-NS-d5w"/>
+                                    <constraint firstAttribute="width" constant="70" id="hCU-Hd-BFo"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mg-3u-wQc">
+                                <rect key="frame" x="329" y="103" width="20" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="ipad.and.arrow.forward" symbolScale="default"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                        <color key="value" name="YPRed"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="logoutButtonTapped:" destination="DMz-Fk-6A0" eventType="touchUpInside" id="GvX-e9-rxg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Екатерина Новикова" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJU-qm-oMj">
+                                <rect key="frame" x="16" y="157" width="216.66666666666666" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" name="YPWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ea4-PP-ShR">
+                                <rect key="frame" x="16" y="193" width="97" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" name="YPGray"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzu-mb-PVG">
+                                <rect key="frame" x="16" y="215" width="76" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" name="YPWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="slz-Gb-ICc"/>
+                        <color key="backgroundColor" name="YPBlack"/>
+                        <constraints>
+                            <constraint firstItem="slz-Gb-ICc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HJU-qm-oMj" secondAttribute="trailing" symbolic="YES" id="B3G-1Y-JkW"/>
+                            <constraint firstItem="Jzu-mb-PVG" firstAttribute="top" secondItem="Ea4-PP-ShR" secondAttribute="bottom" constant="6" id="BnS-b3-6i0"/>
+                            <constraint firstItem="HJU-qm-oMj" firstAttribute="leading" secondItem="slz-Gb-ICc" secondAttribute="leading" constant="16" id="CI6-x5-fQV"/>
+                            <constraint firstItem="slz-Gb-ICc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jzu-mb-PVG" secondAttribute="trailing" symbolic="YES" id="ORh-6c-zCz"/>
+                            <constraint firstItem="4mg-3u-wQc" firstAttribute="top" secondItem="slz-Gb-ICc" secondAttribute="top" constant="56" id="VmO-IM-bfr"/>
+                            <constraint firstItem="slz-Gb-ICc" firstAttribute="trailing" secondItem="4mg-3u-wQc" secondAttribute="trailing" constant="26" id="cXK-Gg-ODN"/>
+                            <constraint firstItem="cMd-xt-Mxl" firstAttribute="top" secondItem="slz-Gb-ICc" secondAttribute="top" constant="32" id="iwk-Vh-YWh"/>
+                            <constraint firstItem="cMd-xt-Mxl" firstAttribute="leading" secondItem="slz-Gb-ICc" secondAttribute="leading" constant="16" id="jK8-DD-gum"/>
+                            <constraint firstItem="Ea4-PP-ShR" firstAttribute="leading" secondItem="slz-Gb-ICc" secondAttribute="leading" constant="16" id="lva-k4-xbM"/>
+                            <constraint firstItem="Ea4-PP-ShR" firstAttribute="top" secondItem="HJU-qm-oMj" secondAttribute="bottom" constant="8" id="oz1-pJ-cc6"/>
+                            <constraint firstItem="Jzu-mb-PVG" firstAttribute="leading" secondItem="Ea4-PP-ShR" secondAttribute="leading" id="pyP-Cp-Yul"/>
+                            <constraint firstItem="slz-Gb-ICc" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ea4-PP-ShR" secondAttribute="trailing" symbolic="YES" id="vO1-5f-w4l"/>
+                            <constraint firstItem="HJU-qm-oMj" firstAttribute="top" secondItem="cMd-xt-Mxl" secondAttribute="bottom" constant="8" id="zHm-tm-wag"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="avatarImageView" destination="cMd-xt-Mxl" id="qh4-0L-F2R"/>
+                        <outlet property="descriptionLabel" destination="Jzu-mb-PVG" id="ABZ-TC-KZJ"/>
+                        <outlet property="logoutView" destination="4mg-3u-wQc" id="3ho-Gq-b84"/>
+                        <outlet property="nameLabel" destination="HJU-qm-oMj" id="cr4-Pu-OeB"/>
+                        <outlet property="nicknameLabel" destination="Ea4-PP-ShR" id="Ffi-iM-wCF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="91F-VK-iAc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1033" y="-35"/>
+        </scene>
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
         <image name="LikeNoActive" width="30" height="26"/>
+        <image name="ipad.and.arrow.forward" width="20" height="22"/>
+        <image name="profilePhoto" width="70" height="70"/>
         <namedColor name="YPBlack">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="YPGray">
+            <color red="0.68199998140335083" green="0.68599998950958252" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="YPRed">
+            <color red="0.96100002527236938" green="0.41999998688697815" blue="0.42399999499320984" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="YPWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
