@@ -23,12 +23,11 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func logoutButtonTapped() {
-        print("Good luck")
     }
     
-    func applyStyle() {
+    private func applyStyle() {
         avatarImageView.image = UIImage(named: "avatar") ?? UIImage()
-        avatarImageView.layer.cornerRadius = 35
+        avatarImageView.layer.cornerRadius = 61
         
         applyStyleLabel(
             nameLabel,
@@ -76,7 +75,7 @@ final class ProfileViewController: UIViewController {
     }
     
     // MARK: Supporting methods
-    func applyStyleLabel(
+    private func applyStyleLabel(
         _ label: UILabel,
         text: String = "",
         font: UIFont? = UIFont.systemFont(ofSize: 13),

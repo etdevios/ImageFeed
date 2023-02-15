@@ -65,6 +65,7 @@ extension ImagesListViewController {
         let formattedDate = dateFormatter.string(from: Date())
         let isLiked = indexPath.row % 2 == 0
         
+        cell.selectionStyle = .none
         cell.setup(withImage: image, date: formattedDate, isLiked: isLiked)
     }
 }
