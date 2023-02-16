@@ -14,6 +14,8 @@
 		F617867E29797179007F2F8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F617867C29797179007F2F8C /* Main.storyboard */; };
 		F61786802979717D007F2F8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F617867F2979717D007F2F8C /* Assets.xcassets */; };
 		F61786832979717D007F2F8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61786812979717D007F2F8C /* LaunchScreen.storyboard */; };
+		F64C4D15298BB49700F334B3 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64C4D14298BB49700F334B3 /* ProfileViewController.swift */; };
+		F6897B07298D17EF001C5F48 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6897B06298D17EF001C5F48 /* SingleImageViewController.swift */; };
 		F6FC153E29798221004BC4F6 /* UIColor+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC153D29798221004BC4F6 /* UIColor+Extesions.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 		F617867F2979717D007F2F8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F61786822979717D007F2F8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F61786842979717D007F2F8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F64C4D14298BB49700F334B3 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F6897B06298D17EF001C5F48 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		F6FC153D29798221004BC4F6 /* UIColor+Extesions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extesions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,13 +76,31 @@
 				F6FC153C297981ED004BC4F6 /* Resources */,
 				F617867629797179007F2F8C /* AppDelegate.swift */,
 				F617867829797179007F2F8C /* SceneDelegate.swift */,
+				F6897B08298D1C19001C5F48 /* SingleImage */,
 				F60C5EA12979E01C00A2B5B3 /* ImagesList */,
+				F64C4D16298BB4C600F334B3 /* Profile */,
 				F617867C29797179007F2F8C /* Main.storyboard */,
 				F617867F2979717D007F2F8C /* Assets.xcassets */,
 				F61786812979717D007F2F8C /* LaunchScreen.storyboard */,
 				F61786842979717D007F2F8C /* Info.plist */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		F64C4D16298BB4C600F334B3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F64C4D14298BB49700F334B3 /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		F6897B08298D1C19001C5F48 /* SingleImage */ = {
+			isa = PBXGroup;
+			children = (
+				F6897B06298D17EF001C5F48 /* SingleImageViewController.swift */,
+			);
+			path = SingleImage;
 			sourceTree = "<group>";
 		};
 		F6FC153C297981ED004BC4F6 /* Resources */ = {
@@ -100,7 +122,6 @@
 				F617867029797179007F2F8C /* Frameworks */,
 				F617867129797179007F2F8C /* Resources */,
 				F617868A297972AA007F2F8C /* TODO: FIXME: ERROR warning */,
-				F617868B297972DC007F2F8C /* Auto-increment build number */,
 			);
 			buildRules = (
 			);
@@ -177,25 +198,6 @@
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nOUTPUT=$(find \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\")\nECHO \"$OUTPUT\"\n\nif [[ $OUTPUT == *\" error: \"* ]]\nthen\nexit 1\n\nfi\n";
 		};
-		F617868B297972DC007F2F8C /* Auto-increment build number */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Auto-increment build number";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "buildNumber=$(xcodebuild -showBuildSettings | grep CURRENT_PROJECT_VERSION | tr -d 'CURRENT_PROJECT_VERSION =')\nbuildNumber=`echo $buildNumber +1|bc`\nxcrun agvtool new-version $buildNumber\n\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -203,8 +205,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F64C4D15298BB49700F334B3 /* ProfileViewController.swift in Sources */,
 				F6FC153E29798221004BC4F6 /* UIColor+Extesions.swift in Sources */,
 				F617867B29797179007F2F8C /* ImagesListViewController.swift in Sources */,
+				F6897B07298D17EF001C5F48 /* SingleImageViewController.swift in Sources */,
 				F60C5EA02979DFDD00A2B5B3 /* ImagesListCell.swift in Sources */,
 				F617867729797179007F2F8C /* AppDelegate.swift in Sources */,
 				F617867929797179007F2F8C /* SceneDelegate.swift in Sources */,
@@ -353,7 +357,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 99;
 				DEVELOPMENT_TEAM = 2W63BAHUHF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
@@ -384,7 +388,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 99;
 				DEVELOPMENT_TEAM = 2W63BAHUHF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageFeed/Info.plist;
