@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F60878FC299E34850058D253 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60878FB299E34850058D253 /* Constants.swift */; };
 		F60C5EA02979DFDD00A2B5B3 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60C5E9F2979DFDD00A2B5B3 /* ImagesListCell.swift */; };
 		F617867729797179007F2F8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867629797179007F2F8C /* AppDelegate.swift */; };
 		F617867929797179007F2F8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867829797179007F2F8C /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F60878FB299E34850058D253 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F60C5E9F2979DFDD00A2B5B3 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		F617867329797179007F2F8C /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F617867629797179007F2F8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,12 +75,13 @@
 		F617867529797179007F2F8C /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				F6FC153C297981ED004BC4F6 /* Resources */,
 				F617867629797179007F2F8C /* AppDelegate.swift */,
 				F617867829797179007F2F8C /* SceneDelegate.swift */,
+				F60878FB299E34850058D253 /* Constants.swift */,
 				F6897B08298D1C19001C5F48 /* SingleImage */,
 				F60C5EA12979E01C00A2B5B3 /* ImagesList */,
 				F64C4D16298BB4C600F334B3 /* Profile */,
+				F6FC153C297981ED004BC4F6 /* Resources */,
 				F617867C29797179007F2F8C /* Main.storyboard */,
 				F617867F2979717D007F2F8C /* Assets.xcassets */,
 				F61786812979717D007F2F8C /* LaunchScreen.storyboard */,
@@ -212,6 +215,7 @@
 				F60C5EA02979DFDD00A2B5B3 /* ImagesListCell.swift in Sources */,
 				F617867729797179007F2F8C /* AppDelegate.swift in Sources */,
 				F617867929797179007F2F8C /* SceneDelegate.swift in Sources */,
+				F60878FC299E34850058D253 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
