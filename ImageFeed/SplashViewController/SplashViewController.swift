@@ -41,7 +41,8 @@ extension SplashViewController {
         let tabBarController = UIStoryboard(
             name: "Main",
             bundle: .main
-        ).instantiateViewController(
+        )
+            .instantiateViewController(
                 withIdentifier: K.IB.storyboardIDTabBar
             )
         window.rootViewController = tabBarController

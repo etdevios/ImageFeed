@@ -18,26 +18,9 @@ final class WebViewViewController: UIViewController {
         super.viewDidLoad()
         
         webView.navigationDelegate = self
-        var urlComponents = URLComponents(string: K.API.unsplashAuthorizeURLString)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: K.API.accessKey),
-            URLQueryItem(name: "redirect_uri", value: K.API.redirectURI),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: K.API.accessScope)
-        ]
-        let url = urlComponents.url!
-        
-        let request = URLRequest(url: url)
-        webView.load(request)
+        downloadWebContent()
     }
     
-    @IBAction private func didTapBackButton(_ sender: Any?) {
-        delegate?.webViewViewControllerDidCancel(self)
-    }
-}
-
-//MARK: KVO
-extension WebViewViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -52,7 +35,11 @@ extension WebViewViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
+        webView.removeObserver(
+            self,
+            forKeyPath: #keyPath(WKWebView.estimatedProgress),
+            context: nil
+        )
     }
     
     override func observeValue(
@@ -73,9 +60,30 @@ extension WebViewViewController {
         }
     }
     
+    @IBAction private func didTapBackButton(_ sender: Any?) {
+        delegate?.webViewViewControllerDidCancel(self)
+    }
+    
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
+    }
+}
+
+//MARK: private methods
+private extension WebViewViewController {
+    private func downloadWebContent() {
+        var urlComponents = URLComponents(string: K.API.unsplashAuthorizeURLString)!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "client_id", value: K.API.accessKey),
+            URLQueryItem(name: "redirect_uri", value: K.API.redirectURI),
+            URLQueryItem(name: "response_type", value: "code"),
+            URLQueryItem(name: "scope", value: K.API.accessScope)
+        ]
+        let url = urlComponents.url!
+        
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
 }
 
