@@ -41,6 +41,18 @@ final class ImagesListViewController: UIViewController {
     }
 }
 
+extension ImagesListViewController {
+    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+        guard let image = UIImage(named: photosName[indexPath.row]) else { return }
+        
+        let formattedDate = dateFormatter.string(from: Date())
+        let isLiked = indexPath.row % 2 == 0
+        
+        cell.selectionStyle = .none
+        cell.setup(withImage: image, date: formattedDate, isLiked: isLiked)
+    }
+}
+
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photosName.count
@@ -55,18 +67,6 @@ extension ImagesListViewController: UITableViewDataSource {
         configCell(for: imageListCell, with: indexPath)
         
         return imageListCell
-    }
-}
-
-extension ImagesListViewController {
-    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard let image = UIImage(named: photosName[indexPath.row]) else { return }
-        
-        let formattedDate = dateFormatter.string(from: Date())
-        let isLiked = indexPath.row % 2 == 0
-        
-        cell.selectionStyle = .none
-        cell.setup(withImage: image, date: formattedDate, isLiked: isLiked)
     }
 }
 
