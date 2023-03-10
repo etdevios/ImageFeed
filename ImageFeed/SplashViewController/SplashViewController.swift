@@ -29,9 +29,9 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        oauth2TokenStorage.deleteToken()
         if oauth2TokenStorage.token != nil {
             guard let token = oauth2TokenStorage.token else { return }
-            print(token)
             fetchProfile(token)
             switchToTabBarController()
         } else {
@@ -51,8 +51,7 @@ extension SplashViewController {
     }
     
     private func presentAuthViewController() {
-        guard let authViewController = getViewController(withIdentifier: K.IB.authViewControllerIdentifier) as? AuthViewController
-        else { fatalError("Unable to get AuthViewController") }
+        let authViewController = AuthViewController()
         
         authViewController.delegate = self
         authViewController.modalPresentationStyle = .fullScreen
