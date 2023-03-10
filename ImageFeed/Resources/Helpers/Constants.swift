@@ -13,14 +13,15 @@ struct K {
         static let secretKey = "rNsUmFeEvit_-DIdaZ7p15aXxlLCtcqIsaxpwhM8fDw"
         static let redirectURI = "urn:ietf:wg:oauth:2.0:oob"
         static let accessScope = "public+read_user+write_likes"
-        static let defaultBaseURL = URL(string: "https://api.unsplash.com")
+        static let defaultBaseURL = "https://api.unsplash.com"
         
         static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     }
     
     struct IB {
         static let webViewSegueIdentifier = "ShowWebView"
-        static let authViewSegueIdentifier = "ShowAuthenticationScreen"
-        static let storyboardIDTabBar = "TabBarViewController"
+//        static let authViewSegueIdentifier = "ShowAuthenticationScreen"
+        static let tabBarControllerIdentifier = "TabBarViewController"
+        static let authViewControllerIdentifier = "AuthViewController"
     }
 }

@@ -6,65 +6,125 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class SplashViewController: UIViewController {
+    private lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "splash_screen_logo")
+        return imageView
+    }()
+    
     private let oauth2Service = OAuth2Service()
-    private let oauth2TokenStorage = OAuth2TokenStorage()
+    private var oauth2TokenStorage = OAuth2TokenStorage()
+    
+    private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageServices.shared
+    
+    override func viewDidLoad() {
+        view.backgroundColor = .ypBlack
+        layoutLogo()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if OAuth2TokenStorage().token != nil {
+        if oauth2TokenStorage.token != nil {
+            guard let token = oauth2TokenStorage.token else { return }
+            print(token)
+            fetchProfile(token)
             switchToTabBarController()
         } else {
-            performSegue(withIdentifier: K.IB.authViewSegueIdentifier, sender: nil)
+            presentAuthViewController()
         }
     }
 }
 
 extension SplashViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.IB.authViewSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(K.IB.authViewSegueIdentifier)") }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
+    private func switchToTabBarController() {
+        guard let window = UIApplication.shared.windows.first,
+              let tabBarController = getViewController(withIdentifier: K.IB.tabBarControllerIdentifier) as? TabBarController
+        else { fatalError("Invalid Configuration ") }
+        
+        window.rootViewController = tabBarController
+        window.makeKeyAndVisible()
+    }
+    
+    private func presentAuthViewController() {
+        guard let authViewController = getViewController(withIdentifier: K.IB.authViewControllerIdentifier) as? AuthViewController
+        else { fatalError("Unable to get AuthViewController") }
+        
+        authViewController.delegate = self
+        authViewController.modalPresentationStyle = .fullScreen
+        present(authViewController, animated: true)
+    }
+    
+    private func getViewController(withIdentifier id: String) -> UIViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let viewController = storyboard.instantiateViewController(withIdentifier: id)
+        return viewController
+    }
+    
+    private func fetchProfile(_ token: String?) {
+        guard let token  else { return }
+        profileService.fetchProfile(token) {  result in
+            switch result {
+            case .success(let userProfile):
+                UIBlockingProgressHUD.dismiss()
+                self.profileImageService.fetchProfileImageURL(username: userProfile.username) { _ in }
+                self.switchToTabBarController()
+            case .failure(let error):
+                self.showAlert(with: error)
+                UIBlockingProgressHUD.dismiss()
+            }
         }
     }
     
-    private func switchToTabBarController() {
-        guard let window = UIApplication.shared.windows.first
-        else { fatalError("Invalid Configuration ") }
-        let tabBarController = UIStoryboard(
-            name: "Main",
-            bundle: .main
+    private func showAlert(with error: Error) {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так(",
+            message: "Не удалось войти в систему. Ошибка: \(error)",
+            preferredStyle: .alert
         )
-            .instantiateViewController(
-                withIdentifier: K.IB.storyboardIDTabBar
-            )
-        window.rootViewController = tabBarController
+        let action = UIAlertAction(title: "OK", style: .cancel)
+        alert.addAction(action)
+        self.present(alert, animated: true)
+    }
+    
+    private func layoutLogo() {
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(logoImageView)
+        NSLayoutConstraint.activate([
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }
 
+//MARK: - AuthViewControllerDelegate
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(
         _ vc: AuthViewController,
         didAuthenticateWithCode code: String
     ) {
+        UIBlockingProgressHUD.show()
         dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            self.oauth2Service.fetchAuthToken(code: code) { result in
-                switch result {
-                case.success(let response):
-                    self.oauth2TokenStorage.token = response.accessToken
-                    self.switchToTabBarController()
-                case.failure:
-                    
-                    break
-                }
+            self.fetchOAuthToken(code)
+        }
+    }
+    
+    private func fetchOAuthToken(_ code: String) {
+        oauth2Service.fetchAuthToken(code) { result in
+            switch result {
+            case .success(let response):
+                self.oauth2TokenStorage.token = response.accessToken
+                self.fetchProfile(self.oauth2TokenStorage.token)
+                self.switchToTabBarController()
+                UIBlockingProgressHUD.dismiss()
+            case .failure(let error):
+                self.showAlert(with: error)
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }
