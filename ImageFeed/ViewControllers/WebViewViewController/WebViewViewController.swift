@@ -11,7 +11,7 @@ import WebKit
 final class WebViewViewController: UIViewController {
     private var backButton: UIButton!
     private var webView = WKWebView()
-    private var progressView: UIProgressView!
+    private var progressView = UIProgressView()
     private var estimatedProgressObservation: NSKeyValueObservation?
     
     weak var delegate: WebViewViewControllerDelegate?
@@ -36,11 +36,8 @@ final class WebViewViewController: UIViewController {
     }
     
     private func updateProgress() {
-        print(webView.estimatedProgress)
-        if progressView != nil {
             progressView.progress = Float(webView.estimatedProgress)
             progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-        }
     }
     private func createViews() {
         view.backgroundColor = .ypWhite
@@ -52,12 +49,8 @@ final class WebViewViewController: UIViewController {
             return button
         }()
         
-        progressView = {
-            let progressView = UIProgressView()
             progressView.progressViewStyle = .default
             progressView.progressTintColor = .ypBlack
-            return progressView
-        }()
     }
     
     @objc private func didTapBackButton() {

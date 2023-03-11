@@ -43,7 +43,7 @@ final class AuthViewController: UIViewController {
     @objc func didTaploginButton() {
         let webViewViewController = WebViewViewController()
         webViewViewController.delegate = self
-
+        
         webViewViewController.modalPresentationStyle = .fullScreen
         present(webViewViewController, animated: true)
     }

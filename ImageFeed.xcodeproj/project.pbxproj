@@ -20,7 +20,6 @@
 		F60C5EA02979DFDD00A2B5B3 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60C5E9F2979DFDD00A2B5B3 /* ImagesListCell.swift */; };
 		F617867929797179007F2F8C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867829797179007F2F8C /* SceneDelegate.swift */; };
 		F617867B29797179007F2F8C /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F617867A29797179007F2F8C /* ImagesListViewController.swift */; };
-		F617867E29797179007F2F8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F617867C29797179007F2F8C /* Main.storyboard */; };
 		F61786802979717D007F2F8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F617867F2979717D007F2F8C /* Assets.xcassets */; };
 		F61786832979717D007F2F8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F61786812979717D007F2F8C /* LaunchScreen.storyboard */; };
 		F61D339229B5266200318A81 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61D339129B5266200318A81 /* ProfileImageService.swift */; };
@@ -54,7 +53,6 @@
 		F617867329797179007F2F8C /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F617867829797179007F2F8C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F617867A29797179007F2F8C /* ImagesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
-		F617867D29797179007F2F8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F617867F2979717D007F2F8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F61786822979717D007F2F8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F61786842979717D007F2F8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -90,8 +88,6 @@
 			children = (
 				F60878FD299ECD580058D253 /* AuthViewController.swift */,
 				F608791929A0BF750058D253 /* AuthViewControllerDelegate.swift */,
-				F6087900299ECEF90058D253 /* WebViewViewController.swift */,
-				F6087902299EDED70058D253 /* WebViewViewControllerDelegate.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -140,6 +136,45 @@
 			path = ImagesList;
 			sourceTree = "<group>";
 		};
+		F61311CF29BBFEC8009D0DD9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F61311D129BBFF4E009D0DD9 /* TabBarController */,
+				F608791829A0B80F0058D253 /* SplashViewController */,
+				F60878FF299ECE2E0058D253 /* Auth */,
+				F61311D029BBFF17009D0DD9 /* WebViewViewController */,
+				F60C5EA12979E01C00A2B5B3 /* ImagesList */,
+				F6897B08298D1C19001C5F48 /* SingleImage */,
+				F64C4D16298BB4C600F334B3 /* Profile */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F61311D029BBFF17009D0DD9 /* WebViewViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F6087900299ECEF90058D253 /* WebViewViewController.swift */,
+				F6087902299EDED70058D253 /* WebViewViewControllerDelegate.swift */,
+			);
+			path = WebViewViewController;
+			sourceTree = "<group>";
+		};
+		F61311D129BBFF4E009D0DD9 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				F6DDB3E729BA398900590588 /* TabBarController.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		F61311D229BC08A2009D0DD9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F61786812979717D007F2F8C /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		F617866A29797179007F2F8C = {
 			isa = PBXGroup;
 			children = (
@@ -160,14 +195,10 @@
 			isa = PBXGroup;
 			children = (
 				F608791529A0B7860058D253 /* AppDelegates */,
-				F608791829A0B80F0058D253 /* SplashViewController */,
 				F6087914299F42610058D253 /* Models */,
+				F61311CF29BBFEC8009D0DD9 /* ViewControllers */,
+				F61311D229BC08A2009D0DD9 /* Views */,
 				F6087913299F42360058D253 /* Services */,
-				F60878FF299ECE2E0058D253 /* Auth */,
-				F6897B08298D1C19001C5F48 /* SingleImage */,
-				F60C5EA12979E01C00A2B5B3 /* ImagesList */,
-				F64C4D16298BB4C600F334B3 /* Profile */,
-				F6DDB3E729BA398900590588 /* TabBarController.swift */,
 				F6FC153C297981ED004BC4F6 /* Resources */,
 			);
 			path = ImageFeed;
@@ -240,9 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				F6873CD829B4B2920014A219 /* Helpers */,
-				F617867C29797179007F2F8C /* Main.storyboard */,
 				F617867F2979717D007F2F8C /* Assets.xcassets */,
-				F61786812979717D007F2F8C /* LaunchScreen.storyboard */,
 				F61786842979717D007F2F8C /* Info.plist */,
 			);
 			path = Resources;
@@ -319,7 +348,6 @@
 			files = (
 				F61786832979717D007F2F8C /* LaunchScreen.storyboard in Resources */,
 				F61786802979717D007F2F8C /* Assets.xcassets in Resources */,
-				F617867E29797179007F2F8C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,14 +410,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F617867C29797179007F2F8C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F617867D29797179007F2F8C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F61786812979717D007F2F8C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -528,7 +548,6 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need to write photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -560,7 +579,6 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need to write photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -32,7 +32,6 @@ final class SplashViewController: UIViewController {
         if oauth2TokenStorage.token != nil {
             guard let token = oauth2TokenStorage.token else { return }
             fetchProfile(token)
-            switchToTabBarController()
         } else {
             presentAuthViewController()
         }
@@ -41,9 +40,8 @@ final class SplashViewController: UIViewController {
 
 extension SplashViewController {
     private func switchToTabBarController() {
-        guard let window = UIApplication.shared.windows.first,
-              let tabBarController = getViewController(withIdentifier: K.IB.tabBarControllerIdentifier) as? TabBarController
-        else { fatalError("Invalid Configuration ") }
+        let tabBarController = TabBarController()
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration ") }
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
