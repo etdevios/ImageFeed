@@ -29,7 +29,6 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        oauth2TokenStorage.deleteToken()
         if oauth2TokenStorage.token != nil {
             guard let token = oauth2TokenStorage.token else { return }
             fetchProfile(token)
@@ -52,10 +51,11 @@ extension SplashViewController {
     
     private func presentAuthViewController() {
         let authViewController = AuthViewController()
-        
         authViewController.delegate = self
-        authViewController.modalPresentationStyle = .fullScreen
-        present(authViewController, animated: true)
+        
+        let navigationAuthViewController = UINavigationController(rootViewController: authViewController)
+        navigationAuthViewController.modalPresentationStyle = .fullScreen
+        present(navigationAuthViewController, animated: true)
     }
     
     private func getViewController(withIdentifier id: String) -> UIViewController {

@@ -8,8 +8,8 @@
 import UIKit
 
 final class AuthViewController: UIViewController {
-    private lazy var logoImageView = UIImageView()
-    private lazy var loginButton = UIButton()
+    private var logoImageView: UIImageView!
+    private var loginButton: UIButton!
     
     weak var delegate: AuthViewControllerDelegate?
     
@@ -30,8 +30,8 @@ final class AuthViewController: UIViewController {
         
         loginButton = {
             let button = UIButton(type: .system)
-            button.addTarget(self, action: #selector(loginButtonTouched), for: .touchUpInside)
-            
+            button.addTarget(self, action: #selector(didTaploginButton), for: .touchUpInside)
+            button.layer.cornerRadius = 16
             button.setTitle("Войти", for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
             button.setTitleColor(.ypBlack, for: .normal)
@@ -40,8 +40,12 @@ final class AuthViewController: UIViewController {
         }()
     }
     
-    @objc func loginButtonTouched() {
-        
+    @objc func didTaploginButton() {
+        let webViewViewController = WebViewViewController()
+        webViewViewController.delegate = self
+
+        webViewViewController.modalPresentationStyle = .fullScreen
+        present(webViewViewController, animated: true)
     }
     
     private func addSubviews() {
@@ -63,18 +67,6 @@ final class AuthViewController: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
-    }
-
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.IB.webViewSegueIdentifier {
-            guard
-                let webViewViewController = segue.destination as? WebViewViewController
-            else { fatalError("Failed to prepare for \(K.IB.webViewSegueIdentifier)") }
-            webViewViewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
     }
 }
 
