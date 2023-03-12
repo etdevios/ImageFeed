@@ -9,7 +9,16 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
     private let photosName: [String] = Array(0..<20).map{ "\($0)"}
-    private var tableView = UITableView()
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(ImagesListCell.self, forCellReuseIdentifier: String(describing: ImagesListCell.self))
+        
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .ypBlack
+        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        return tableView
+    }()
+    
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -20,23 +29,25 @@ final class ImagesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .ypBlack
-        layoutTableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        addSubviews()
+        addViewConstraints()
+        createViews()
     }
 }
 
-extension ImagesListViewController {
-    private func layoutTableView() {
-        tableView.register(ImagesListCell.self, forCellReuseIdentifier: String(describing: ImagesListCell.self))
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .ypBlack
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+private extension ImagesListViewController {
+    func createViews() {
+        view.backgroundColor = .ypBlack
+    }
+    
+    func addSubviews() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        
+    }
+    
+    func addViewConstraints() {
         NSLayoutConstraint.activate([
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -87,7 +98,7 @@ extension ImagesListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let image = UIImage(named: photosName[indexPath.row]) else { return 0 }
-
+        
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
         let imageWidth = image.size.width

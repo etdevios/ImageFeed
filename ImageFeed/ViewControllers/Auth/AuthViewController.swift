@@ -8,39 +8,32 @@
 import UIKit
 
 final class AuthViewController: UIViewController {
-    private var logoImageView: UIImageView!
-    private var loginButton: UIButton!
+    private lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "auth_screen_logo")
+        return imageView
+    }()
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(didTaploginButton), for: .touchUpInside)
+        button.layer.cornerRadius = 16
+        button.setTitle("Войти", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        button.setTitleColor(.ypBlack, for: .normal)
+        button.backgroundColor = .ypWhite
+        return button
+    }()
     
     weak var delegate: AuthViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createViews()
         addSubviews()
         addViewConstraints()
     }
     
-    private func createViews() {
-        logoImageView = {
-            let imageView = UIImageView()
-            imageView.image = UIImage(named: "auth_screen_logo")
-            return imageView
-        }()
-        
-        loginButton = {
-            let button = UIButton(type: .system)
-            button.addTarget(self, action: #selector(didTaploginButton), for: .touchUpInside)
-            button.layer.cornerRadius = 16
-            button.setTitle("Войти", for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-            button.setTitleColor(.ypBlack, for: .normal)
-            button.backgroundColor = .ypWhite
-            return button
-        }()
-    }
-    
-    @objc func didTaploginButton() {
+    @objc private func didTaploginButton() {
         let webViewViewController = WebViewViewController()
         webViewViewController.delegate = self
         

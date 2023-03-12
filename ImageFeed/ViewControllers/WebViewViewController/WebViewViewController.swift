@@ -9,9 +9,26 @@ import UIKit
 import WebKit
 
 final class WebViewViewController: UIViewController {
-    private var backButton: UIButton!
-    private var webView = WKWebView()
-    private var progressView = UIProgressView()
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.setImage(UIImage(named: "nav_back_button"), for: .normal)
+        return UIButton()
+    }()
+    
+    private lazy var webView: WKWebView = {
+        let webView = WKWebView()
+        return webView
+    }()
+    
+    private lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.progressViewStyle = .default
+        progressView.progressTintColor = .ypBlack
+        return progressView
+    }()
+    
     private var estimatedProgressObservation: NSKeyValueObservation?
     
     weak var delegate: WebViewViewControllerDelegate?
@@ -36,21 +53,11 @@ final class WebViewViewController: UIViewController {
     }
     
     private func updateProgress() {
-            progressView.progress = Float(webView.estimatedProgress)
-            progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
+        progressView.progress = Float(webView.estimatedProgress)
+        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
     private func createViews() {
         view.backgroundColor = .ypWhite
-        backButton = {
-            let button = UIButton(type: .custom)
-            button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
-            button.setImage(UIImage(named: "nav_back_button"), for: .normal)
-            return button
-        }()
-        
-            progressView.progressViewStyle = .default
-            progressView.progressTintColor = .ypBlack
     }
     
     @objc private func didTapBackButton() {
@@ -85,7 +92,7 @@ final class WebViewViewController: UIViewController {
 
 //MARK: private methods
 private extension WebViewViewController {
-    private func downloadWebContent() {
+    func downloadWebContent() {
         var urlComponents = URLComponents(string: K.API.unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: K.API.accessKey),

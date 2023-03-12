@@ -12,6 +12,7 @@ final class ProfileService {
     private var lastToken: String?
     
     static let shared = ProfileService()
+    private init() {}
     private(set) var profile: Profile?
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
