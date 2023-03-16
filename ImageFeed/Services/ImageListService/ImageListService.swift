@@ -23,6 +23,8 @@ final class ImageListService {
         if task != nil { return }
         task?.cancel()
         
+        let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
+        
         let session = URLSession.shared
         let task = session.objectTask(for: makeRequest(lastLoadedPage)) { [weak self] (result: Result<[PhotoResult], Error>) in
             guard let self else { return }
@@ -30,6 +32,8 @@ final class ImageListService {
             case .success(let photoResult):
                 for photo in photoResult {
                     self.photos.append(Photo(from: photo))
+                    
+                    self.lastLoadedPage = 1
                 }
                 NotificationCenter.default
                     .post(
