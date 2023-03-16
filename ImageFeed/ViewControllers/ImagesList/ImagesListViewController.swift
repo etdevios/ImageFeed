@@ -34,6 +34,7 @@ final class ImagesListViewController: UIViewController {
         addSubviews()
         addViewConstraints()
         createViews()
+        ImageListService.shared.fetchPhotosNextPage()
     }
 }
 
@@ -58,6 +59,10 @@ private extension ImagesListViewController {
 }
 
 extension ImagesListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photosName.count
     }

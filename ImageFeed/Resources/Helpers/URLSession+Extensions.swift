@@ -30,6 +30,7 @@ extension URLSession {
                     do {
                         let decoder = JSONDecoder()
                         decoder.keyDecodingStrategy = .convertFromSnakeCase
+                        decoder.dateDecodingStrategy = .iso8601
                         let result = try decoder.decode(T.self, from: data)
                         fulfillCompletionOnMainThread(.success(result))
                     } catch {
