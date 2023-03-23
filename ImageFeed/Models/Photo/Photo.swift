@@ -14,7 +14,7 @@ struct Photo {
     let welcomeDescription: String?
     let thumbImageURL: String
     let largeImageURL: String
-    let isLiked: Bool
+    var isLiked: Bool
     
     init(from result: PhotoResult) {
         self.id = result.id
@@ -24,5 +24,13 @@ struct Photo {
         self.thumbImageURL = result.urls.thumb
         self.largeImageURL = result.urls.full
         self.isLiked = result.likedByUser
+    }
+}
+
+struct LikedPhoto {
+    let likedPhoto: PhotoResult
+    
+    init(likedPhotoResult: LikePhotoResult) {
+        self.likedPhoto = likedPhotoResult.photo
     }
 }

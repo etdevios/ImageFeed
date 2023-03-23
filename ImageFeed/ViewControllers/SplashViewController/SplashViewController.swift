@@ -84,6 +84,7 @@ extension SplashViewController {
             preferredStyle: .alert
         )
         let action = UIAlertAction(title: "OK", style: .cancel)
+        alert.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
         alert.addAction(action)
         self.present(alert, animated: true)
     }

@@ -7,12 +7,16 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final class ProfileViewController: UIViewController {
     private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar") ?? UIImage()
-        imageView.layer.cornerRadius = 61
+        imageView.backgroundColor = .ypWhite
+        imageView.tintColor = .ypGray
+        imageView.layer.cornerRadius = 35
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -44,15 +48,17 @@ final class ProfileViewController: UIViewController {
     
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    private var oauth2TokenStorage = OAuth2TokenStorage()
+    private var gradientViews = Set<UIView>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addSubviews()
         addViewConstraints()
+        createGradient()
         
         updateProfileDetails(with: profileService.profile)
-        
         profileImageServiceObserver = NotificationCenter.default
             .addObserver(
                 forName: ProfileImageServices.didChangeNotification,
@@ -65,7 +71,21 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func logoutButtonTapped() {
-        
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Да", style: .cancel) { [weak self] _ in
+            guard let self = self else { return }
+            self.oauth2TokenStorage.removeToken()
+            self.clean()
+            guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+            window.rootViewController = SplashViewController()
+            window.makeKeyAndVisible()
+        }
+        let noAction = UIAlertAction(title: "Нет", style: .default)
+        [yesAction, noAction].forEach { item in
+            alert.addAction(item)
+        }
+        alert.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
+        self.present(alert, animated: true)
     }
     
     private func updateProfileDetails(with profile: Profile?) {
@@ -81,7 +101,44 @@ final class ProfileViewController: UIViewController {
             let url = URL(string: profileImageURL)
         else { return }
         
-        avatarImageView.kf.setImage(with: url)
+        let sfSymbolName = "person.crop.circle.fill"
+        
+        let sizeSfSymbol = UIImage.SymbolConfiguration(pointSize: 70.0)
+        guard let imageA = UIImage(systemName: sfSymbolName, withConfiguration: sizeSfSymbol)?.withTintColor(.ypGray, renderingMode: .alwaysOriginal) else {
+            fatalError("Could not load SF Symbol: \(sfSymbolName)!")
+        }
+        
+        guard let cgRef = imageA.cgImage else {
+            fatalError("Could not get cgImage!")
+        }
+        let imageB = UIImage(cgImage: cgRef, scale: imageA.scale, orientation: imageA.imageOrientation)
+            .withTintColor(.ypGray, renderingMode: .alwaysOriginal)
+        let placeholder = imageB
+        placeholder.withTintColor(.ypWhite)
+        
+        avatarImageView.kf.setImage(with: url, placeholder: placeholder) {_ in
+            self.removeGradient()
+        }
+    }
+    
+    private func createGradient() {
+        let avatarGradientView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 70, height: 70)))
+        let nameGradientView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 235, height: 28)))
+        let nicknameGradientView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 18)))
+        
+        
+        [avatarGradientView, nameGradientView, nicknameGradientView].forEach {
+            $0.applyGradientWithAnimation()
+            gradientViews.insert($0)
+        }
+        
+        avatarImageView.addSubview(avatarGradientView)
+        nicknameLabel.addSubview(nicknameGradientView)
+        nameLabel.addSubview(nameGradientView)
+    }
+    
+    private func removeGradient() {
+        gradientViews.forEach { $0.removeGradientWithAnimation()}
     }
     
     // MARK: Supporting methods
@@ -96,7 +153,14 @@ final class ProfileViewController: UIViewController {
         label.textColor = textColor
     }
     
-    
+    private func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
+    }
 }
 
 private extension ProfileViewController {

@@ -25,28 +25,32 @@ extension URLSession {
         }
         
         let task = dataTask(with: request, completionHandler: { data, response, error in
-            if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                if 200 ..< 300 ~= statusCode {
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        decoder.dateDecodingStrategy = .iso8601
-                        let result = try decoder.decode(T.self, from: data)
-                        fulfillCompletionOnMainThread(.success(result))
-                    } catch {
-                        fulfillCompletionOnMainThread(.failure(NetworkError.urlRequestError(error)))
-                    }
+            guard
+                let data = data,
+                let response = response,
+                let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                if let error = error {
+                    fulfillCompletionOnMainThread(.failure(NetworkError.urlRequestError(error)))
                 } else {
-                    fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
+                    fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
                 }
-            } else if let error = error {
-                fulfillCompletionOnMainThread(.failure(NetworkError.urlRequestError(error)))
+                return
+            }
+            
+            if 200 ..< 300 ~= statusCode {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    decoder.dateDecodingStrategy = .iso8601
+                    let result = try decoder.decode(T.self, from: data)
+                    fulfillCompletionOnMainThread(.success(result))
+                } catch {
+                    fulfillCompletionOnMainThread(.failure(NetworkError.urlRequestError(error)))
+                }
             } else {
-                fulfillCompletionOnMainThread(.failure(NetworkError.urlSessionError))
+                fulfillCompletionOnMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
             }
         })
         return task
     }
 }
-
-

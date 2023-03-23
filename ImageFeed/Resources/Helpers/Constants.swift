@@ -20,7 +20,6 @@ struct K {
     
     struct IB {
         static let webViewSegueIdentifier = "ShowWebView"
-//        static let authViewSegueIdentifier = "ShowAuthenticationScreen"
         static let tabBarControllerIdentifier = "TabBarViewController"
         static let authViewControllerIdentifier = "AuthViewController"
     }

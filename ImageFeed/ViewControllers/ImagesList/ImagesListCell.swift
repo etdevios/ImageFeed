@@ -6,11 +6,24 @@
 //
 
 import UIKit
+import Kingfisher
+
+protocol ImagesListCellDelegate: AnyObject {
+    func imageListCellDidTapLike(_ cell: ImagesListCell)
+}
 
 final class ImagesListCell: UITableViewCell {
-    private let gradientLayer = CAGradientLayer()
+    enum FeedCellImageState {
+        case loading
+        case error
+        case finished(UIImage, String, Bool)
+    }
     
-    private lazy var imageCell: UIImageView = {
+    private var loadingGradientView = UIView()
+    private let gradientLayer = CAGradientLayer()
+    weak var delegate: ImagesListCellDelegate?
+    
+    lazy var imageCell: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 16
         imageView.layer.masksToBounds = true
@@ -19,6 +32,7 @@ final class ImagesListCell: UITableViewCell {
     
     private lazy var likeButton: UIButton = {
         let button = UIButton()
+        button.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -33,6 +47,22 @@ final class ImagesListCell: UITableViewCell {
         return view
     }()
     
+    var cellState: FeedCellImageState? {
+        didSet {
+            switch cellState {
+            case .loading:
+                showLoadingGradientWithAnimation()
+            case .error:
+                hideLoadingGradientWithAnimation()
+                imageCell.image = UIImage(named: "card_stub")
+            case .finished(let image, let date, let isLiked):
+                finished(withImage: image, date: date, isLiked: isLiked)
+            default:
+                break
+            }
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -46,10 +76,23 @@ final class ImagesListCell: UITableViewCell {
     
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: self.layer)
+        
         gradientLayer.frame = gradientView.bounds
     }
     
-    func setup(withImage image: UIImage, date formattedDate: String, isLiked: Bool) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        hideLoadingGradientWithAnimation()
+        imageCell.kf.cancelDownloadTask()
+    }
+    
+    @objc func likeButtonClicked() {
+        delegate?.imageListCellDidTapLike(self)
+    }
+    
+    private func finished(withImage image: UIImage, date formattedDate: String, isLiked: Bool) {
+        hideLoadingGradientWithAnimation()
         imageCell.image = image
         
         gradientLayer.colors = [
@@ -59,10 +102,21 @@ final class ImagesListCell: UITableViewCell {
         gradientView.layer.insertSublayer(gradientLayer, at: 0)
         
         dateLabel.text = formattedDate
-        
-        let nameImageLike = isLiked ? "like_button_on" : "like_button_off"
-        let likeImage = UIImage(named: nameImageLike)
-        likeButton.setImage(likeImage, for: .normal)
+        setIsLiked(isLike: isLiked)
+    }
+    
+    private func setIsLiked(isLike: Bool) {
+        likeButton.setImage(UIImage(named: isLike ? "like_button_on" : "like_button_off"), for: .normal)
+    }
+    
+    private func showLoadingGradientWithAnimation() {
+        loadingGradientView.frame = bounds
+        loadingGradientView.applyGradientWithAnimation()
+        imageCell.addSubview(loadingGradientView)
+    }
+    
+    private func hideLoadingGradientWithAnimation() {
+        loadingGradientView.removeGradientWithAnimation()
     }
 }
 
