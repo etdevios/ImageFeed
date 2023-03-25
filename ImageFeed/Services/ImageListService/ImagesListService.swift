@@ -25,7 +25,8 @@ final class ImagesListService {
         task?.cancel()
         
         let session = URLSession.shared
-        let task = session.objectTask(for: makeRequest(lastLoadedPage)) { [weak self] (result: Result<[PhotoResult], Error>) in
+        guard let requestPhoto = makeRequest(lastLoadedPage) else {return assertionFailure("Error photo request")}
+        let task = session.objectTask(for: requestPhoto) { [weak self] (result: Result<[PhotoResult], Error>) in
             guard let self else { return }
             self.task = nil
             switch result {
@@ -42,21 +43,27 @@ final class ImagesListService {
                     )
                 self.lastLoadedPage += 1
             case .failure(let error):
-                print(error)
+                assertionFailure("Error - \(error)")
             }
         }
         self.task = task
         task.resume()
     }
     
-    private func makeRequest(_ page: Int) -> URLRequest {
+    private func makeRequest(_ page: Int) -> URLRequest? {
         var urlComponents = URLComponents(string: K.API.defaultBaseURL)
         urlComponents?.path = "/photos"
         urlComponents?.queryItems = [.init(name: "page", value: "\(page)")]
         
-        guard let url = urlComponents?.url else { fatalError("Failed to create URL") }
+        guard let url = urlComponents?.url else {
+            assertionFailure("Failed to create URL")
+            return nil
+        }
         var request = URLRequest(url: url)
-        guard let token = OAuth2TokenStorage().token else { fatalError("Failed to create token") }
+        guard let token = OAuth2TokenStorage().token else {
+            assertionFailure("Failed to create token")
+            return nil
+        }
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }
@@ -71,7 +78,9 @@ final class ImagesListService {
         likeTask?.cancel()
         
         let session = URLSession.shared
-        let task = session.objectTask(for: makeLikeRequest(photoId, isLike: isLike)) { [weak self] (result: Result<LikePhotoResult, Error>) in
+        guard let likeRequest = makeLikeRequest(photoId, isLike: isLike) else { return assertionFailure("Error like request")}
+        
+        let task = session.objectTask(for: likeRequest) { [weak self] (result: Result<LikePhotoResult, Error>) in
             guard let self else { return }
             self.likeTask = nil
             switch result {
@@ -91,12 +100,19 @@ final class ImagesListService {
         task.resume()
     }
     
-    private func makeLikeRequest(_ id: String, isLike: Bool) -> URLRequest {
+    private func makeLikeRequest(_ id: String, isLike: Bool) -> URLRequest? {
         var urlComponents = URLComponents(string: K.API.defaultBaseURL)
         urlComponents?.path = "/photos/\(id)/like"
-        guard let url = urlComponents?.url else { fatalError("Failed to create URL") }
+        
+        guard let url = urlComponents?.url else {
+            assertionFailure("Failed to create URL")
+            return nil
+        }
         var request = URLRequest(url: url)
-        guard let token = OAuth2TokenStorage().token else { fatalError("Failed to create token") }
+        guard let token = OAuth2TokenStorage().token else {
+            assertionFailure("Failed to create token")
+            return nil
+        }
         request.httpMethod = isLike ? "POST" : "DELETE"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request

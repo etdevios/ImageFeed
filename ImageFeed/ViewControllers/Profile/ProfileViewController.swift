@@ -73,10 +73,10 @@ final class ProfileViewController: UIViewController {
     @objc private func logoutButtonTapped() {
         let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Да", style: .cancel) { [weak self] _ in
-            guard let self = self else { return }
+            guard let self = self else { return assertionFailure("Impossible get a weak self") }
             self.oauth2TokenStorage.removeToken()
-            self.clean()
-            guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+            self.cleanCache()
+            guard let window = UIApplication.shared.windows.first else { return assertionFailure("Invalid Configuration") }
             window.rootViewController = SplashViewController()
             window.makeKeyAndVisible()
         }
@@ -105,11 +105,11 @@ final class ProfileViewController: UIViewController {
         
         let sizeSfSymbol = UIImage.SymbolConfiguration(pointSize: 70.0)
         guard let imageA = UIImage(systemName: sfSymbolName, withConfiguration: sizeSfSymbol)?.withTintColor(.ypGray, renderingMode: .alwaysOriginal) else {
-            fatalError("Could not load SF Symbol: \(sfSymbolName)!")
+            return assertionFailure("Could not load SF Symbol: \(sfSymbolName)!" )
         }
         
         guard let cgRef = imageA.cgImage else {
-            fatalError("Could not get cgImage!")
+            return assertionFailure("Could not get cgImage!")
         }
         let imageB = UIImage(cgImage: cgRef, scale: imageA.scale, orientation: imageA.imageOrientation)
             .withTintColor(.ypGray, renderingMode: .alwaysOriginal)
@@ -153,7 +153,7 @@ final class ProfileViewController: UIViewController {
         label.textColor = textColor
     }
     
-    private func clean() {
+    private func cleanCache() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
         WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
             records.forEach { record in
