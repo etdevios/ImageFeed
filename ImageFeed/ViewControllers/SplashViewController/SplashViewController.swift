@@ -106,10 +106,8 @@ extension SplashViewController: AuthViewControllerDelegate {
         didAuthenticateWithCode code: String
     ) {
         UIBlockingProgressHUD.show()
-        dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.fetchOAuthToken(code)
-        }
+        self.navigationController?.popToRootViewController(animated: true)
+        self.fetchOAuthToken(code)
     }
     
     private func fetchOAuthToken(_ code: String) {
