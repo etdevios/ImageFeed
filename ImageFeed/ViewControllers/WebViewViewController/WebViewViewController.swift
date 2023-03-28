@@ -14,7 +14,7 @@ final class WebViewViewController: UIViewController {
         button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.setImage(UIImage(named: "nav_back_button"), for: .normal)
-        return UIButton()
+        return button
     }()
     
     private lazy var webView: WKWebView = {
@@ -36,6 +36,7 @@ final class WebViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .ypWhite
         estimatedProgressObservation = webView.observe(
             \.estimatedProgress,
              options: [.new],
@@ -65,7 +66,7 @@ final class WebViewViewController: UIViewController {
     }
     
     private func addSubviews() {
-        [webView, backButton, progressView].forEach { item in
+        [backButton, progressView, webView].forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(item)
         }

@@ -10,6 +10,7 @@ import Foundation
 final class ProfileImageServices {
     private var task: URLSessionTask?
     private var lastUsername: String?
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     
     static let shared = ProfileImageServices()
     private init() {}
@@ -56,7 +57,7 @@ final class ProfileImageServices {
         urlComponents?.path = "/users/\(username)"
         guard let url = urlComponents?.url else { fatalError("Failed to create URL") }
         var request = URLRequest(url: url)
-        guard let token = OAuth2TokenStorage().token else { fatalError("Failed to create token") }
+        guard let token = oAuth2TokenStorage.token else { fatalError("Failed to create token") }
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         return request
     }

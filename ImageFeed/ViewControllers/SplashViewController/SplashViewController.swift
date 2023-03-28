@@ -16,7 +16,7 @@ final class SplashViewController: UIViewController {
     }()
     
     private let oauth2Service = OAuth2Service()
-    private var oauth2TokenStorage = OAuth2TokenStorage()
+    private var oauth2TokenStorage = OAuth2TokenStorage.shared
     
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageServices.shared
@@ -84,6 +84,7 @@ extension SplashViewController {
             preferredStyle: .alert
         )
         let action = UIAlertAction(title: "OK", style: .cancel)
+        alert.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
         alert.addAction(action)
         self.present(alert, animated: true)
     }
@@ -105,10 +106,8 @@ extension SplashViewController: AuthViewControllerDelegate {
         didAuthenticateWithCode code: String
     ) {
         UIBlockingProgressHUD.show()
-        dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.fetchOAuthToken(code)
-        }
+        self.navigationController?.popToRootViewController(animated: true)
+        self.fetchOAuthToken(code)
     }
     
     private func fetchOAuthToken(_ code: String) {
