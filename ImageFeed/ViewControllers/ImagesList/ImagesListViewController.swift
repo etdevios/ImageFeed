@@ -119,8 +119,11 @@ extension ImagesListViewController: UITableViewDataSource {
     
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         let photo = photos[indexPath.row]
+        var formattedDate: String = ""
+        if let dateString = photo.createdAt {
+            formattedDate = dateFormatter.string(from: dateString)
+        }
         
-        let formattedDate = dateFormatter.string(from: photo.createdAt ?? Date())
         
         cell.backgroundColor = .ypBlack
         cell.selectionStyle = .none

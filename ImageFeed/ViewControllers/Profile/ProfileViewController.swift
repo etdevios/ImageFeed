@@ -48,7 +48,7 @@ final class ProfileViewController: UIViewController {
     
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
-    private var oauth2TokenStorage = OAuth2TokenStorage()
+    private var oauth2TokenStorage = OAuth2TokenStorage.shared
     private var gradientViews = Set<UIView>()
     
     override func viewDidLoad() {
@@ -116,7 +116,8 @@ final class ProfileViewController: UIViewController {
         let placeholder = imageB
         placeholder.withTintColor(.ypWhite)
         
-        avatarImageView.kf.setImage(with: url, placeholder: placeholder) {_ in
+        avatarImageView.kf.setImage(with: url, placeholder: placeholder) { [weak self] _ in
+            guard let self = self else { return }
             self.removeGradient()
         }
     }

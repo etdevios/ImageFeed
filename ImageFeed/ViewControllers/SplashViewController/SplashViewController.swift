@@ -16,7 +16,7 @@ final class SplashViewController: UIViewController {
     }()
     
     private let oauth2Service = OAuth2Service()
-    private var oauth2TokenStorage = OAuth2TokenStorage()
+    private var oauth2TokenStorage = OAuth2TokenStorage.shared
     
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageServices.shared

@@ -13,6 +13,7 @@ final class ImagesListService {
     
     private (set) var photos: [Photo] = []
     private var lastLoadedPage: Int = 1
+    private let oAuth2TokenStorage = OAuth2TokenStorage.shared
     
     static let didChangeNotification = Notification.Name(rawValue: "ImageListServiceDidChange")
     
@@ -60,7 +61,7 @@ final class ImagesListService {
             return nil
         }
         var request = URLRequest(url: url)
-        guard let token = OAuth2TokenStorage().token else {
+        guard let token = oAuth2TokenStorage.token else {
             assertionFailure("Failed to create token")
             return nil
         }
@@ -109,7 +110,7 @@ final class ImagesListService {
             return nil
         }
         var request = URLRequest(url: url)
-        guard let token = OAuth2TokenStorage().token else {
+        guard let token = oAuth2TokenStorage.token else {
             assertionFailure("Failed to create token")
             return nil
         }
