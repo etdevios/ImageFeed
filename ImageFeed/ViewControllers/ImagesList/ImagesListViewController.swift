@@ -7,9 +7,14 @@
 
 import UIKit
 import Kingfisher
-import ProgressHUD
 
-final class ImagesListViewController: UIViewController {
+public protocol ImagesListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListPresenterProtocol? { get set }
+    func updateTableViewAnimated()
+}
+
+final class ImagesListViewController: UIViewController & ImagesListViewControllerProtocol {
+    var presenter: ImagesListPresenterProtocol?
     private var photos: [Photo] = []
     private let imagesListService = ImagesListService.shared
     private var imagesListServiceObserver: NSObjectProtocol?
@@ -41,7 +46,7 @@ final class ImagesListViewController: UIViewController {
         createViews()
         UIBlockingProgressHUD.show()
         imagesListService.fetchPhotosNextPage()
-        addNotificationObserver()
+        presenter?.viewDidLoad()
     }
     
     func updateTableViewAnimated() {
@@ -57,18 +62,6 @@ final class ImagesListViewController: UIViewController {
                 tableView.insertRows(at: indexPaths, with: .automatic)
             }
         }
-    }
-    
-    func addNotificationObserver() {
-        imagesListServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ImagesListService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                UIBlockingProgressHUD.dismiss()
-                self?.updateTableViewAnimated()
-            }
     }
 }
 
