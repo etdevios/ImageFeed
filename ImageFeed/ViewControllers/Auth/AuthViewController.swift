@@ -21,6 +21,7 @@ final class AuthViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(.ypBlack, for: .normal)
         button.backgroundColor = .ypWhite
+        button.accessibilityIdentifier = "Authenticate"
         return button
     }()
     
@@ -35,7 +36,12 @@ final class AuthViewController: UIViewController {
     }
     
     @objc private func didTaploginButton() {
+        let authHelper = AuthHelper()
         let webViewViewController = WebViewViewController()
+        let webViewPresenter = WebViewPresenter(authHelper: authHelper)
+        
+        webViewViewController.presenter = webViewPresenter
+        webViewPresenter.view = webViewViewController
         webViewViewController.delegate = self
         
         webViewViewController.modalPresentationStyle = .fullScreen

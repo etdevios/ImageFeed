@@ -26,6 +26,7 @@ final class SingleImageViewController: UIViewController {
         button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.setImage(UIImage(named: "nav_back_button_white"), for: .normal)
+        button.accessibilityIdentifier = "navBackButton"
         return button
     }()
     
